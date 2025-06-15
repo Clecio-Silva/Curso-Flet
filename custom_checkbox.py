@@ -3,11 +3,11 @@ import flet as ft
 class CheckBox(ft.Row):
     def __init__(self, text):
         super().__init__()
-        self.text_view = ft.Text(text)
-        self.text_edit = ft.TextField(text, visible=False)
+        self.text_view = ft.Text(text, expand=True)
+        self.text_edit = ft.TextField(text, visible=False, expand=True)
         self.edit_button = ft.IconButton(icon=ft.Icons.EDIT, on_click=self.edit)
-        self.save_button = ft.IconButton(icon=ft.Icons.SAVE, visible=False, on_click=self.save)
-        self.delete_button = ft.IconButton(icon=ft.Icons.DELETE, on_click=self.delete)
+        self.save_button = ft.IconButton(icon=ft.Icons.SAVE, visible=False, on_click=self.save, icon_color="green")
+        self.delete_button = ft.IconButton(icon=ft.Icons.DELETE, on_click=self.delete, icon_color="red")
         
         self.controls = [
             ft.Checkbox(),
@@ -27,6 +27,9 @@ class CheckBox(ft.Row):
         self.update()
         
     def save(self, e):
+        if self.text_edit.value == "":
+            self.text_edit.focus()
+            return
         self.edit_button.visible = True
         self.delete_button.visible = True
         self.text_view.visible = True
